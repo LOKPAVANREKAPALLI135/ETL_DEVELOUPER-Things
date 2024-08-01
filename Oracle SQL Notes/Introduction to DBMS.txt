@@ -1,0 +1,103 @@
+Computer is a machine made of 2 major components
+-> Hardware (physical components of a computer)
+-> Software (set of programs used to automate a task)
+
+				Software classification
+					|
+			---------------------------------
+		 	|				|
+		System software			Application software
+			|				|
+	   ----------------------		-------------------------
+	   |			|	        |			|
+ 	  O/S		    utilities	    Languages		    Packages
+         -----              ---------	    ---------		    --------
+    windows, msdos       Device drivers    C C++ java		MS office, tally
+    solaris, unix,       a/v players      python html		photoshop, flash
+    linux, MAC		 anti-virus	  SQL Ruby R		Oracle, SAP, maya
+
+O/S : It control all activities of the computer
+	--> command interprettation
+	--> device management
+	--> memory management
+
+-----------------------------------------------------------------------------------------
+
+DBMS Concepts
+
+DBMS stands for Data Base Management System  
+(It is a process of creating and maintain databases)
+
+Data		: Collection of raw facts and figures (alphabet, symbols and numbers)
+		  Data is a value without any identity.  It is also called as Raw Data.
+		  Ex: 50,     David,	10-jun-2020
+
+Information	: Data given with an identity is called Information.
+		  Information is always meaningful.
+		  Age=50,  Emp_name="David",  Joining date="10-jun-2020"
+
+DataBase	: Information given in an organized format
+		  It is also called as Table (combination of rows and columns)
+		  These databases are of 2 types
+		--> Manual database
+		    -is slow in processing		
+		    -suitable for small amount of data
+		    -it occupies lot of space
+		--> Electronic database
+		    -they are created and maintained using a software
+		    -is fast in processing
+		    -suitable for small or large quantities of data
+		    -it occupies very less space
+
+Database Management : The process of creating, adding, deleting, updating and searching data is called 
+		      database management. It is generally done using software
+
+DBMS		: The software used for database management is called DBMS package.
+		  Ex: Dbase, foxbase, foxpro, sybase, oracle, MS sql server, mysql, mongo db, PostgrySQL
+----------------------------------------------------------------------------------------------------
+
+Data Models :
+-------------
+These are the various methods used to create and maintain data from olden times to the latest time
+
+FMS   : File Management System
+	Data is create and stored in a flat file (text file format)
+	Limitations:
+	- data is stored in a unsecured file
+	- data creating standards are not fixed
+	- data is accessed sequentially, so very slow in processing
+
+DBMS  : Database Management System
+	Advantages:
+	- data is stored in a secured login that is protected with username and password
+	- data creating standards are fixed. we use the datatypes for each column
+	- data is accessed sequentially or randomly, so very fast in processing
+
+Types of DBMS:
+--------------
+HDBMS : Hierarchical Database Management System
+	This type of data is stored in the form of levels and sub levels
+
+NDBMS : Network Database Management System
+	Data is created and stored in a network server.
+	So, it can be accessed from many client systems
+
+RDBMS : Relational Database Management System
+	Data is created in different tables and these tables are linked by using 
+	primary key - foreign key relation
+	Ex: In below example 'ccode' of courses table is related to 'course_no' of students table
+			courses				
+		ccode   cname   fees             
+		101	oracle	5000		
+		102	java	10000
+		103	aws	15000
+
+				students
+		idno    stud_name   course_no   paid_amt
+		1	ramu		101	1000
+		2	shyam		101	500
+		3	swamy		103	3000
+		4	raju		103	9000
+
+ORDBMS: Object Relational Database Management System
+	OOPS features + RDBMS Features --> ORDBMS

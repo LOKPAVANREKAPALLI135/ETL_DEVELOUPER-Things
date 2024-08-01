@@ -1,0 +1,20 @@
+Select: This command is used to display the data of the table
+
+Syntax:	SELECT */Col.Name(s)/Expression as “Alias Name”
+	FROM <TableName> 
+	WHERE <condition>
+	GROUP BY <colname/expression>
+	HAVING <condition>
+	ORDER BY <colname/expression>;
+
+ORDERY BY: should be added as the last part of the select statement
+ 
+*	: means all columns of the table
+Expression : means any calculated or manipulated value
+Alias name : means temporary heading for column name or expression
+Where <cond> : This called as row filter, it is used to show only specific rows that
+		match the given condition
+	Operators used in where condition:
+	1) Relational operators :	>     <     >=     <=     =     != <>
+	2) Logical operators	:	and 	or  	not
+	3) Special operators	:	between      in      like      is null

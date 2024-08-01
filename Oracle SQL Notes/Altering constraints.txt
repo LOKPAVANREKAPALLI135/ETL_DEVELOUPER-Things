@@ -1,0 +1,42 @@
+enable/disable/drop constraints
+
+alter table <tablename> enable/disable/drop constraint <constriant_name>;
+
+Ex:  alter table emp2 disable constraint SYS_C007056;
+To enable the constraint we have to set the values to the valid values for that column and then enable the constraint. When invalid values exist in a column then, we cannot enable the constraint.
+
+--------------------------------------------------------
+How to Add constraints to existing columns?
+
+Only one constraint can be added at a time for a column
+
+1) Adding NOT NULL constraint:
+Syntax: Alter table <tablename> modify(
+	<column name> datatype(width) constraint <constraint name> NOT NULL);
+Ex: Alter table emp2 modify (first_name varchar2(20) constraint nn_firstname_emp2 not null);
+
+2&3) Adding Unique/Primary Key constraint: 
+Syntax: Alter table <tablename> add constraint <constraint name> 
+        unique/primary key (<column name>);
+Ex: Alter table emp2 add constraint pk_empid_emp2 primary key (employee_id);
+Ex: Alter table emp2 add constraint unq_hiredate_emp2 unique(hire_date);
+
+4) Adding CHECK constraint:
+Syntax: Alter table <tablename> add constraint <constraint name> check (<condition>);
+Ex: Alter table emp2 add constraint chk_salary_emp2 check(salary>=4000);
+Ex: Alter table emp2 add constraint chk_hiredate_emp2 check(hire_date<='10-jan-2022');
+Ex: Alter table friends add constraint chk_gender_friends 
+    check(gender in('M','m','f','F'));
+
+5) Adding References/Foreign key constraint:
+Syntax: Alter table <tablename> add constraint <constraint name> 
+        foreign key(<child table column name>) references <parent tablename>(<colname>);
+Ex: Alter table sales add constraint fk_prodid_sales foreign key (prodid) 
+    references stock(idno);
+Ex: Alter table emp2 add constraint fk_deptid_emp2 foreign key (department_id)
+    references departments(department_id);
+
+
+
+
+

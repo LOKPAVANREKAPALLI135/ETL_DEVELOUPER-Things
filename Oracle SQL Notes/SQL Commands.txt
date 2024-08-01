@@ -1,0 +1,269 @@
+How to Login into SQL
+---------------------
+Start menu --> type "Run SQL command line" and select the link
+SQL Prompt is displayed
+
+SQL> connect hr/manager    (hr is a default user and manager is the password)
+			(User name is not case sensitive but password is case sensitive)
+
+Errors while logging in:
+1) Invalid username/password 
+Sol:  check with the user name spelling or password 
+      (remember that password is case sensitive)
+
+2) Oracle initialization or shutdown in progress
+Sol:  Wait for 1 or mins and try to login again
+
+3) TNS:protocol adapter error   (oracle services are not loaded)
+Sol:  start menu --> type "Start Database"
+
+4) The account is locked   (for the first time users, We have to unlock the user)
+Sol:  connect system/manager   (This will connect to Admin user DBA)
+      alter user <username> identified by <password> account unlock;
+      disconnect
+
+Datatypes in SQL
+----------------
+1)	Number : to store numeric values with or without decimal
+		 maximum limit is 38 digits including precision or scale
+		Precision : means total column width
+		Scale     : means number of digits in decimal point
+		Ex:  	age number(3)
+			phno number(10)
+			avg_marks number(6,2)  means ----.--
+
+2)	char :	to store character values upto 2000 characters
+		fixed width column  (unused space also will occupy bytes)
+		Ex: 	stu_name char(10)	
+			result char(4)
+			grade char(1)
+
+3)	varchar2 : to store character values upto 4000 characters
+		   variable width column   (unused space is saved)
+		Ex:	stu_name varchar2(10)
+
+4)	date :	to store date or time values in a column width is fixed as 9 bytes(date 7,time 2)
+		by default system shows date only and format is dd-mon-yy (08-Nov-21)
+
+How to create a table?
+the DDL command create is used
+	create table <tablename> (
+	  <column name> datatype(width),
+	  <column name> datatype(width),
+	  ........);
+
+	create table cricketers (
+	sno number(3), 
+	name varchar2(10), 
+	joindate date, 
+	runs number(6), 
+	wickets number(3),
+	runrate number(5,2));
+
+Inserting rows into the table
+------------------------------
+insert into <tablename> [(col. names)] values(val1, val2, .....);
+NOTE: char, varchar2 and date values must be given within single quotes ' '
+
+Ex:	insert into circketers values(1, 'ravi', '10-jun-84', 7900, 345, 7.25);
+  	insert into circketers values(2, 'raju', null, null, 345, null);
+	insert into cricketers (sno,name,runrate) values (4,'kiran',6.4);
+
+--------------------------------------------------------------------------------
+update : to make changes to the values of exisiting table
+
+update <tablename> set <colname> = value/expression [where <condition>];
+NOTE: if the 'where condition' is not given, then the given update is applied to 
+	all rows of the table
+
+Ex:	update cricketers set runs=9750 where sno=3;
+	update cricketers set name = upper(name);    [ lower()  initcap() ]
+	update cricketers set runs=runs+50 where runs<5000;
+
+---------------------------------------------------------------------------------
+	To create a copy of an exisiting table:
+Syntax:	create table <tablename> as <select statement>;  
+whatever is output of the select statement, with that a new table is created
+Ex:	create table match1 as select * from cricketers;
+	select * from cricketers;
+	select * from match1;
+
+delete : to remove the rows from the table (temporary deletion)
+	delete from <tablename> [where <condition>];
+NOTE:  if the 'where condition' is not given then all rows will be deleted
+
+	delete from match1 where sno=2;
+	delete from match1 where wickets<300;
+	delete from match1 where joindate<'1-jan-2000';
+
+	select * from employees;
+	describe employees;
+	create table emp3 as 
+         select employee_id, first_name, salary, department_id, hire_date from employees;
+	select * from emp3;
+	delete from emp3 where salary<4000;
+
+---------------------------------------------------------------------------------------------
+Alter : to modify the table structure
+	--> rename a column
+	--> drop a column
+	--> add a column
+	--> modify datatype or width of a column
+
+	--> rename a column
+Syntax:	alter table <tablename> rename column <colname> to <new colname>;
+Ex:	alter table students rename column idno to stu_id;
+
+	--> drop a column
+Syntax:	alter table <tablename> drop column <colname>;
+	NOTE: when a column is dropped, all values in that column also will be deleted
+Ex:	alter table students drop column gender;
+	Instead of dropping a column, (which is very tedious for large tables) we can 
+	 make the column as unused. This will remove the column from the table list 
+	 (not actually from the table)
+Syntax:	alter table <tablename> set unused column <column name>;
+	alter table emp3 set unused column hire_date;
+
+	--> add a column
+Syntax:	alter table <tablename> add(<colname> datatype(width),......);
+	NOTE:  new columns CANNOT be inserted in between. new columns are added only at the end
+Ex:	alter table students add(place varchar2(10), state varchar2(10), pincode number(6));
+
+	--> modify datatype or width
+Syntax:	alter table <tablename> modify(<colname> datatype(width),......);	
+	NOTE: 1) column to be modified must be empty to change the datatype
+	      2) column to be modified must be empty to decrease the precision or scale
+
+-------------------------------------------------------------------------------------------
+Truncate : 
+To delete all the rows of the table permanently
+We cannot rollback to get back the truncated rows
+We CANNOT use "where condition" (row filter) with truncate 
+	Truncate table <tablename>;
+	Ex: truncate table match1;
+
+---------------------------------------------------------------------------------------------
+Rename :
+To change the name of any database object (not only table)
+	rename <object name> to <new name>;
+	Ex:  select * from emp3;   (shows 10 rows)
+  	     rename emp3 to emp4;
+	     select * from emp3;   (table does not exist)
+	     select * from emp4;   (shows 10 rows)
+	     
+---------------------------------------------------------------------------------------------
+Drop : 
+To remove a table (will all its rows and columns) and send it to the recyclebin
+Recyclebin option is available from Oracle 10g version onwards (Not in older versions)
+When a table is dropped the number of tables in the tab list does not change.
+The table name is changed as "BIN$...24chars....$0"
+The purpose of moving this table to the recyclebin is to have the option of recovering it.
+	Drop table <tablename> [purge];
+	Drop table myfriends;
+	select * from recyclebin;
+	show recyclebin
+
+----------------------------------------------------------------------------------------------
+Flashback:
+This command is used to recover the table from the recyclebin.
+	Flashback table <tablename> to before drop [rename to <new tablename>];
+	Flashback table myfriends to before drop;
+	(now the table is available in the tab list)
+
+If a table with a name myfriends is dropped and we created another table with the same name (myfriends)
+then if you try to recover the table myfriends from the recyclebin, it gives an error.
+So now we can use the rename option
+
+When multiple tables of same name are present in the recyclebin then:
+--> flashback follows LIFO (Last In First Out) order
+--> purge follows FIFO (First In First Out) order
+---------------------------------------------------------------------------------
+
+TCL Commands: 
+Commit:	to save the DML operations made to the client copy permanent to the server
+	Commit;
+
+Rollback: to undo/revert the changed as it was at the latest commit stage.
+	rollback;
+
+Savepoint: to create an identification point so that we can rollback upto 
+	    that savepoint
+Ex:	commit;
+	insert........
+	update........
+	savepoint x;
+	delete........
+	insert ........
+	update.........
+	rollback to x;   (OR)   rollback;
+
+NOTE:	when we use any DDL or DCL or connect/disconnect/exit commands, then
+	a commit operation is automatically executed.
+
+	set autocommit on
+==========================================================================================
+DBA Activities:  These commands can be used only by an admin user (system or sys)
+		  SQL> connect system/manager
+
+1) creating a new user:
+Syntax:  Create user <username> identified by <password>;   (password is case sensitive)
+Ex:	 create user satish identified by satish123;
+	
+2) giving basic level privileges
+Syntax:  grant connect, resource to <user name>;
+Ex:	 grant connect, resource to satish;
+Only after giving the basic level permissions, the user can login
+
+3) changing the password of the user
+Syntax:  Alter user <username> identified by <new password>; 
+Ex:	 Alter user satish identified by satish456;
+
+4) lock or unlock a user
+Syntax:  Alter user <username> account lock/unlock;
+Ex:	 alter user satish account lock;
+Ex:	 alter user satish account unlock;
+
+5) make or remove a user as DBA
+Syntax:  grant DBA to <username>;	
+Syntax:  revoke DBA from <username>;
+Ex:	 grant dba to satish;
+Ex:	 revoke dba from satish;
+NOTE: DBA is a role and roles are applied to user only from the next login
+
+6) drop a user
+Syntax:  drop user <username> cascade;
+Ex:	 drop user satish;	or      drop user satish cascade;
+cascade option is needed when the user account is not empty
+
+To see the list of user in the current database
+select * from all_usres;
+========================================================================================
+Grant : to give peivileges on a table to one or more users.
+	Grant <privileges> on <tablename> to <username(s)>;
+
+Revoke : to take back the given privileges on a table from one or more users.
+	Revoke <privileges> on <tablename> from <username(s)>;
+
+List of privileges:	
+select, insert, update, delete, alter, index, flashback, all
+
+If user A is granting privileges to user B, then, 
+User A is called grantor
+user B is called grantee
+
+A> grant select, insert, update on library to B;
+B> select * from A.library;
+B> insert into A.library values (.............);
+B> update A.library set .....................;
+B> delete from A.library where bookid=1001;    (Insufficient privileges)
+
+NOTE:  Changes made by a user will be effected to others only when commit command is given.
+
+
+
+
+
+
+
+
+	

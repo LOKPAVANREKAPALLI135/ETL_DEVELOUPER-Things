@@ -1,0 +1,56 @@
+ORACLE Course Contents (5 weeks or 1 month, Daily 1 hour)
+=========================================================
+DBMS Concepts
+Data Models
+Components of Oracle
+SQL  (3 weeks)
+SQL commands
+Table Constraints
+Database function
+Select command Options
+ Where clause
+ group by clause
+ having clause
+ order by
+ distinct
+Set operators
+  Union, Intersect, Minus and Union All
+Sub-queuries
+  Simple sub-queries
+  Nested Sub-ueries
+  Single row sub-queries
+  Multiple row sub-queries
+  Corelated sub-queries
+Joins
+  Simple join
+  Inner/Self join
+  Outer join
+  Cartesian Join
+Database objects
+  Synonyms
+  Views
+  Sequences
+  Index
+----------------------------------------------
+PL-SQL   (2 Weeks)
+programming methods
+  structure of a pl/sql program
+  datatypes 
+  variables declaration 
+  i/o statments
+  example program
+control statements
+  if-then-else
+  case-end case
+  for loop
+  while loop
+  simple loop
+rowtype, column type variables
+Exception handelling
+Cursor management
+Sub-programs
+ - procedures
+ - functions
+ - packages
+Triggers
+-------------------------------------------

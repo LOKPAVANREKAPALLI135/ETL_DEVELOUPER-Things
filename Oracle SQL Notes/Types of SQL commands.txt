@@ -1,0 +1,35 @@
+		Components of Oracle
+		/		  \
+	  Backend s/w	     Frontend s/w
+	  ----------- 	     ------------
+	   SQL		     Oracle Developer (Forms & Reports)
+	   PL/SQL	     Oracle Designer
+	   Perl		     Oracle Power Objects
+	   Pro 'C'	     Oracle Apps.
+			     Oracle CRM, HRM, SCM
+
+SQL ( Structured Query Language)
+--------------------------------
+It is a language used to create and maintain databases
+SQL is called as 4GL  (Fourth Generation language)
+4GL means we only instruct "what to do", but not "how to do"
+
+Types of commands in SQL
+------------------------
+1)	DDL commands  [Data Definition Language]
+	Create, Alter, Drop, Truncate, Rename, Flashback, Purge
+
+2)	DML commands  [Data Manipulation Language]
+	Insert, Update, Delete
+
+3)	DQL commands  [Data Query Language]
+	Select
+
+4)	TCL commands  [Transaction Control Language]
+	Commit, Rollback, Savepoint
+
+5)	DCL commands  [Data Control Language]
+	Grant, Revoke
+
+ALL SQL COMMANDS MUST END WITH A SEMICOLON (;)
+SQL * Plus commands need not end with semicolon (; not necessary) 
